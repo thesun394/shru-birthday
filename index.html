@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday Shru</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0b1023; /* night indigo */
+      --bg2:#1a0f3b; /* deep purple */
+      --gold:#ffd166;
+      --peacock:#0ea5a3;
+      --accent:#5eead4;
+      --pink:#ff7ab6;
+      --white:#eef2ff;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--white); font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
+      background: radial-gradient(1200px 1200px at 80% -10%,rgba(14,165,163,.2),transparent),
+                  radial-gradient(1000px 800px at 0% 30%,rgba(94,234,212,.15),transparent),
+                  linear-gradient(160deg,var(--bg1),var(--bg2));
+      overflow-x:hidden;
+    }
+    /* Subtle stars background */
+    .stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+    .star{position:absolute;width:2px;height:2px;background:rgba(255,255,255,.9);border-radius:50%;
+      animation: twinkle 4s linear infinite}
+    @keyframes twinkle{0%,100%{opacity:.2;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}
+
+    /* Peacock feather corner decor */
+    .feather{
+      position:fixed; z-index:1; opacity:.35; filter:drop-shadow(0 0 12px rgba(94,234,212,.25));
+    }
+    .feather.top-left{left:-30px; top:-10px; transform:rotate(-15deg)}
+    .feather.bottom-right{right:-20px; bottom:-10px; transform:rotate(165deg)}
+
+    .container{position:relative; z-index:2; max-width:1100px; margin:auto; padding:28px 20px 64px}
+
+    /* Heading */
+    h1.title{
+      font-family:'Great Vibes', cursive; font-size: clamp(42px, 6vw, 88px); 
+      text-align:center; margin:10px auto 2px; line-height:1.05; color:var(--gold);
+      text-shadow:0 2px 0 rgba(0,0,0,.15), 0 0 22px rgba(255,209,102,.25);
+      letter-spacing:.5px; animation: shimmer 4s ease-in-out infinite;
+    }
+    @keyframes shimmer{0%{filter:brightness(1)}50%{filter:brightness(1.25)}100%{filter:brightness(1)}}
+    .subtitle{ text-align:center; margin-top:0; color:#c7d2fe; opacity:.9 }
+
+    /* Center portrait */
+    .portrait-wrap{ display:grid; place-items:center; margin:24px auto; }
+    .portrait{
+      width:min(68vw,340px); aspect-ratio:1/1; border-radius:24px; overflow:hidden; position:relative;
+      box-shadow:0 12px 60px rgba(0,0,0,.45);
+    }
+    .portrait img{ width:100%; height:160%; object-fit:cover; display:block; }
+    .glow{ position:absolute; inset:-3px; border-radius:26px; padding:3px; background:
+      conic-gradient(from 0deg, #61f4de, #63a9ff, #b794f4, #ffd166, #61f4de);
+      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 8s linear infinite;
+      filter:blur(.35px);
+    }
+    @keyframes spin{to{transform:rotate(1turn)}}
+    .orbit{ position:absolute; inset:-15px; border-radius:40px; border:1px dashed rgba(255,255,255,.16);
+      animation: spin 24s linear infinite reverse }
+
+    /* Personal Note & Blessing */
+    .card{ background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12);
+      border-radius:18px; padding:22px; backdrop-filter:blur(8px); box-shadow:0 8px 30px rgba(0,0,0,.25);
+    }
+    .grid{ display:grid; grid-template-columns:1fr; gap:18px }
+    @media (min-width:900px){ .grid{ grid-template-columns: 1.2fr .9fr } }
+
+    .card h2{ font-family:'Playfair Display',serif; font-weight:700; margin:0 0 6px; color:#e9d5ff }
+    .note{ font-size:clamp(15px,2.2vw,18px); line-height:1.65 }
+
+    .poem{ font-family:'Playfair Display',serif; font-style:italic; white-space:pre-line; line-height:1.9; }
+    .poem .krishna{ color:var(--accent); font-weight:700 }
+
+    /* Video template */
+    .video-card{ position:relative; overflow:hidden }
+    .video-card::before{
+      content:''; position:absolute; inset:-2px; border-radius:18px; padding:2px; background:
+        linear-gradient(120deg, rgba(255,209,102,.8), rgba(94,234,212,.7), rgba(183,148,244,.8));
+      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+    }
+    .video-card video{ width:100%; border-radius:14px; display:block; background:#0b1023 }
+
+    /* Controls bar */
+    .controls{ display:flex; align-items:center; gap:10px; margin-top:8px }
+    .btn{ cursor:pointer; padding:10px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.06); color:var(--white); font-weight:600; transition:.25s; }
+    .btn:hover{ transform:translateY(-1px); background:rgba(255,255,255,.12) }
+
+    /* Flute divider */
+    .flute{ display:flex; align-items:center; justify-content:center; gap:10px; opacity:.9; margin:18px 0 }
+    .flute .stick{ height:6px; width:260px; background:linear-gradient(90deg,#8b5cf6,#fb923c,#facc15);
+      border-radius:6px; position:relative }
+    .flute .stick::before, .flute .stick::after{
+      content:''; position:absolute; top:50%; transform:translateY(-50%); height:14px; width:14px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #ffd166, #ef4444);
+    }
+    .flute .stick::before{ left:22% } .flute .stick::after{ left:66% }
+
+    /* Extra touches */
+    .matki{ position:fixed; font-size:28px; opacity:.85; filter:drop-shadow(0 3px 6px rgba(0,0,0,.45)); z-index:1 }
+    .float{ animation: floatUp var(--dur) linear infinite; }
+    @keyframes floatUp{ 0%{ transform:translateY(40vh) rotate(10deg) } 100%{ transform:translateY(-120vh) rotate(-12deg) } }
+
+    .footprints{ position:fixed; left:-15vw; bottom:28px; width:140vw; height:80px; pointer-events:none; z-index:1;
+      background: repeating-linear-gradient(90deg, transparent 0 120px, transparent 120px 200px);
+      animation: walk 18s linear infinite; opacity:.7 }
+    @keyframes walk{ from{ transform:translateX(-35vw) } to{ transform:translateX(-5vw) } }
+    .footprints svg{ height:100%; width:100% }
+
+    /* Confetti */
+    #confetti{ position:fixed; inset:0; pointer-events:none; z-index:3 }
+
+    /* Footer small text */
+    footer{ text-align:center; opacity:.7; margin-top:26px; font-size:12px }
+
+    /* Utility */
+    .center{ text-align:center }
+    .muted{ opacity:.8 }
+    .spacer{ height:22px }
+  </style>
+</head>
+<body>
+  <!-- Subtle star field -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Peacock feather corners (inline SVG) -->
+  <svg class="feather top-left" width="200" viewBox="0 0 200 200" aria-hidden="true">
+    <defs>
+      <radialGradient id="eye" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#0ea5a3"/>
+        <stop offset="60%" stop-color="#61f4de"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+    </defs>
+    <path d="M10 150 C 60 80, 120 40, 190 20" stroke="url(#eye)" stroke-width="10" fill="none" />
+    <circle cx="150" cy="40" r="18" fill="url(#eye)" />
+  </svg>
+  <svg class="feather bottom-right" width="220" viewBox="0 0 200 200" aria-hidden="true">
+    <use href=".top-left" />
+    <path d="M10 150 C 60 80, 120 40, 190 20" stroke="url(#eye)" stroke-width="10" fill="none" />
+    <circle cx="150" cy="40" r="18" fill="url(#eye)" />
+  </svg>
+
+  <canvas id="confetti"></canvas>
+
+  <div class="container">
+    <h1 class="title">Happy Birthday Dear Shruti! ✨</h1>
+    <p class="subtitle">Wishing you a divine day filled with music, mischief, and blessings from Lord Krishna.</p>
+
+    <div class="portrait-wrap">
+      <div class="portrait" aria-label="Birthday person's photo">
+        <!-- 👉 Replace the img src below with her photo URL or local file path -->
+        <img src="shru.jpg" alt="Her portrait"/>
+        <div class="glow" aria-hidden="true"></div>
+        <div class="orbit" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="flute" aria-hidden="true">
+      <div class="stick"></div>
+      <div>🪈</div>
+      <div class="stick"></div>
+    </div>
+
+    <div class="grid">
+      <!-- Personal Note -->
+      <section class="card">
+        <h2>Personal Note</h2>
+        <p class="note" id="personalNote"> 
+          On your special day, I just want to say how grateful i am to have you as my  special friend in my life . I know that we don't talk that much but i still remember those crazy moments and memories with you which i can't forget. May your day be as beautiful as your soul and your year filled with happiness, love and all the success you deserve. I just want you to be happy. 
+        Dekh yaar yeh sab toh formalities ha sari upr likhne wali , but me tuje ab apne dil se baate kuch khna chahta hu , tu humesha khush rhe apni life me , tu apne carrer me success ho jaye, teri health humesha thik rhe. Balle hi hum ab phle jaise baat nhi krte , na hi humara ab itna koi  milne ke itne chances honge but phir bi muje teri utni hi fikr ha jitne aaj se 1 saal phle thi . TUJE kbhi bi meri zarurat hogi , tu bss ek message hi daal dena , yeh mat sochna ki me kya sochuga aisa waise. Bss yeh sochna ki tera ek dost ha joh tere lia humesha khda hoga. bss itna yaad rkhna.
+        dekh yaar ab me zyada kuch toh likhuga nhi varna meri sachi feelings bahar aa jayegi . bss yeh yaad rkh kbhi bi kuch bi ho tera aadi ha teri help ke lia humesha.. 
+        khush reh humeshaa 
+        happy birthday shruti 
+        god bless u always.
+
+        </p>
+      
+      </section>
+
+      <!-- Divine Blessing -->
+      <section class="card">
+        <h2>Divine Blessing</h2>
+        <div class="poem" id="krishnaBlessing">
+<span class="krishna">Krishna</span> keep your days like Vrindavan skies—
+flute-songs soft, and worries light as feathers.
+May peacock hues paint joy in your eyes,
+and every dawn bind sweet and golden weathers.
+
+When paths feel tangled like forest vines,
+may His playful grace unthread your way;
+with butter-smooth luck and starry signs,
+He dance beside you—night and day.
+        </div>
+      </section>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- Editable Video Template -->
+    <section class="card video-card">
+      <h2>Special Gift</h2>
+      <!-- 👉 Replace the video src with your own clip -->
+      <video id="personalVideo" controls playsinline poster="https://images.unsplash.com/photo-1515706886581-911b0913be26?q=80&w=1200&auto=format&fit=crop">
+        <source src="adi.mp4" type="video/mp4" />
+        
+      </video>
+      
+      <input type="file" id="videoInput" accept="video/*" style="display:none"/>
+    </section>
+
+    <!-- Music Controls -->
+    <section class="card" style="margin-top:16px">
+      <h2></h2>
+      
+      <audio id="bgMusic" loop>
+        <source src="darshana.mp3" type="audio/mpeg">
+      </audio>
+      <div class="controls">
+      
+        <span class="muted"></span>
+      </div>
+    </section>
+
+    <footer>Made with love 🦚🪈</footer>
+  </div>
+
+  <!-- Floating butter pots (matkis) -->
+  <div id="matkis"></div>
+
+  <!-- Krishna footprints across the screen -->
+  <div class="footprints" aria-hidden="true">
+    <svg viewBox="0 0 800 80" preserveAspectRatio="none">
+      <!-- simple stylized footsteps -->
+      <g fill="rgba(255,255,255,.55)">
+        <!-- Repeat pairs along the path -->
+        <g transform="translate(0,5)"><ellipse cx="20" cy="20" rx="7" ry="12"/><circle cx="14" cy="12" r="3"/><circle cx="26" cy="12" r="3"/></g>
+        <g transform="translate(120,22)"><ellipse cx="20" cy="20" rx="7" ry="12"/><circle cx="14" cy="12" r="3"/><circle cx="26" cy="12" r="3"/></g>
+        <g transform="translate(240,8)"><ellipse cx="20" cy="20" rx="7" ry="12"/><circle cx="14" cy="12" r="3"/><circle cx="26" cy="12" r="3"/></g>
+        <g transform="translate(360,25)"><ellipse cx="20" cy="20" rx="7" ry="12"/><circle cx="14" cy="12" r="3"/><circle cx="26" cy="12" r="3"/></g>
+        <g transform="translate(480,10)"><ellipse cx="20" cy="20" rx="7" ry="12"/><circle cx="14" cy="12" r="3"/><circle cx="26" cy="12" r="3"/></g>
+        <g transform="translate(600,28)"><ellipse cx="20" cy="20" rx="7" ry="12"/><circle cx="14" cy="12" r="3"/><circle cx="26" cy="12" r="3"/></g>
+        <g transform="translate(720,14)"><ellipse cx="20" cy="20" rx="7" ry="12"/><circle cx="14" cy="12" r="3"/><circle cx="26" cy="12" r="3"/></g>
+      </g>
+    </svg>
+  </div>
+
+  <script>
+    // --- Stars ---
+    const stars = document.getElementById('stars');
+    for(let i=0;i<120;i++){
+      const s = document.createElement('div');
+      s.className='star';
+      s.style.left = Math.random()*100+'vw';
+      s.style.top = Math.random()*100+'vh';
+      s.style.animationDelay = (Math.random()*4)+'s';
+      s.style.opacity = Math.random()*0.9+0.1;
+      s.style.transform = `scale(${0.5+Math.random()})`;
+      stars.appendChild(s);
+    }
+
+    // --- Floating Matkis --- (using 🏺 emoji; replace with images if desired)
+    const matkiContainer = document.getElementById('matkis');
+    const matkiCount = 8;
+    for(let i=0;i<matkiCount;i++){
+      const m = document.createElement('div');
+      m.className = 'matki float';
+      m.textContent = '🏺';
+      const left = Math.random()*95; // vw
+      m.style.left = left+'vw';
+      m.style.bottom = (-10 - Math.random()*20)+'vh';
+      m.style.setProperty('--dur', (18+Math.random()*10)+'s');
+      matkiContainer.appendChild(m);
+    }
+
+    // --- Confetti on load ---
+    const confetti = document.getElementById('confetti');
+    const ctx = confetti.getContext('2d');
+    function resize(){ confetti.width = innerWidth; confetti.height = innerHeight }
+    addEventListener('resize', resize); resize();
+
+    function shootConfetti(duration=1600, particles=180){
+      const pieces = [];
+      for(let i=0;i<particles;i++){
+        pieces.push({
+          x: Math.random()*confetti.width,
+          y: -20,
+          size: 4+Math.random()*6,
+          vy: 2+Math.random()*4,
+          vx: (Math.random()-.5)*4,
+          rot: Math.random()*360,
+          vr: (Math.random()-.5)*10,
+        });
+      }
+      const start = performance.now();
+      (function frame(t){
+        const elapsed = t - start;
+        ctx.clearRect(0,0,confetti.width, confetti.height);
+        pieces.forEach(p=>{
+          p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+          ctx.save();
+          ctx.translate(p.x, p.y); ctx.rotate(p.rot*Math.PI/180);
+          ctx.fillStyle = `hsl(${(p.x/innerWidth)*360}, 90%, 60%)`;
+          ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size);
+          ctx.restore();
+        });
+        if(elapsed < duration) requestAnimationFrame(frame); else ctx.clearRect(0,0,confetti.width, confetti.height);
+      })(performance.now());
+    }
+    // Fire once on page load
+    window.addEventListener('load', ()=> shootConfetti());
+
+    // --- Music & Video Logic ---
+    const bgMusic = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const video = document.getElementById('personalVideo');
+    const uploadVideoBtn = document.getElementById('uploadVideo');
+    const playVideoBtn = document.getElementById('playVideo');
+    const videoInput = document.getElementById('videoInput');
+
+    let musicPlaying = false;
+
+    function updateMusicBtn(){
+      musicToggle.textContent = musicPlaying ? '⏸️ Pause Music' : '🎵 Play Music';
+    }
+    musicToggle.addEventListener('click', async ()=>{
+      if(!musicPlaying){
+        try{ await bgMusic.play(); musicPlaying = true; updateMusicBtn(); }
+        catch(e){ alert('Please tap once again to allow music playback.'); }
+      }else{ bgMusic.pause(); musicPlaying = false; updateMusicBtn(); }
+    });
+
+    // Pause music when video plays; resume when paused
+    video.addEventListener('play', ()=>{ if(!bgMusic.paused){ bgMusic.pause(); musicPlaying=false; updateMusicBtn(); } });
+    video.addEventListener('pause', ()=>{ /* do nothing; user controls music */ });
+
+    // Upload/replace video
+    uploadVideoBtn.addEventListener('click', ()=> videoInput.click());
+    videoInput.addEventListener('change', ()=>{
+      const file = videoInput.files[0];
+      if(file){
+        const url = URL.createObjectURL(file);
+        video.src = url;
+        video.load();
+      }
+    });
+    playVideoBtn.addEventListener('click', ()=> video.play());
+
+    // --- Editable Personal Note ---
+    const note = document.getElementById('personalNote');
+    const editBtn = document.getElementById('editNote');
+    const saveBtn = document.getElementById('saveNote');
+    editBtn.addEventListener('click', ()=>{
+      note.contentEditable = 'true'; note.focus(); editBtn.style.display='none'; saveBtn.style.display='inline-block';
+    });
+    saveBtn.addEventListener('click', ()=>{
+      note.contentEditable = 'false'; saveBtn.style.display='none'; editBtn.style.display='inline-block';
+    });
+  </script>
+</body>
+</html>
